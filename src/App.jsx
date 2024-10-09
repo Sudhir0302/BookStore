@@ -24,7 +24,7 @@ function App() {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get('https://bookstore-server-1.onrender.com/books');
+        const response = await axios.get('https://bookkart-server.onrender.com/books');
         setBooks(response.data);
         setFilteredBooks(response.data);
       } catch (error) {
