@@ -60,8 +60,8 @@ const OrderPopup = ({ cartItems, totalPrice, onClose, onSubmit }) => {
                 <div className="mb-4">
                     <h3 className="text-lg font-semibold">Cart Summary</h3>
                     <ul>
-                        {cartItems.map((item, index) => (
-                            <li key={index} className="flex justify-between">
+                        {cartItems.map((item) => (
+                            <li key={item._id} className="flex justify-between">
                                 <span>{item.title}</span>
                                 <span>₹{item.price}</span>
                             </li>

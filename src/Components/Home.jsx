@@ -21,7 +21,7 @@ const Carousel = ({ images }) => {
   };
 
   return (
-    <div className="relative w-full h-96 mb-8"> {/* Increased height to h-96 */}
+    <div className="relative w-full h-96 mb-8">
       <div className="absolute inset-0">
         <img
           src={images[currentIndex]}
@@ -242,7 +242,6 @@ const handleClosePopup = () => {
   );
 };
 
-// GenreSection component to handle genre-based book display with filtering and pagination
 const GenreSection = ({ genre, books, search,handlePop}) => {
   const [startIndex, setStartIndex] = React.useState(0);
 
@@ -274,25 +273,24 @@ const GenreSection = ({ genre, books, search,handlePop}) => {
           <ChevronLeft size={24} />
         </button>
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 px-4">
-          {filteredBooks.slice(startIndex, startIndex + 5).map((book, index) => (
-            <ProductCard
-              key={index}
-              title={book.title}
-              author={book.author}
-              description={book.description}
-              price={book.price}
-              imageUrl={book.imageUrl}
-              overview={book.overview}
-              stockAvailability={book.stockAvailability}
-              language={book.language}
-              genre={book.genre}
-              format={book.format}
-              publisher={book.publisher}
-              id = {book._id}
-              // handleCart={handleCart}
-              handlePop={handlePop}
-            />
-          ))}
+        {filteredBooks.slice(startIndex, startIndex + 5).map((book) => (
+          <ProductCard
+            key={book._id} 
+            title={book.title}
+            author={book.author}
+            description={book.description}
+            price={book.price}
+            imageUrl={book.imageUrl}
+            overview={book.overview}
+            stockAvailability={book.stockAvailability}
+            language={book.language}
+            genre={book.genre}
+            format={book.format}
+            publisher={book.publisher}
+            id={book._id} 
+            handlePop={handlePop}
+          />
+        ))}
         </div>
         <button
           onClick={handleNext}
@@ -377,9 +375,9 @@ const Home = ({ search, category, OnCategory }) => {
         <Carousel images={carouselImages} />
 
         {matchedGenres.length > 0 ? (
-          matchedGenres.map(([genre, books]) => (
+          matchedGenres.map(([genre, books], index) => (
             <GenreSection
-              key={genre}
+              key={`${genre}-${index}`} 
               genre={genre}
               books={books}
               search={search}
