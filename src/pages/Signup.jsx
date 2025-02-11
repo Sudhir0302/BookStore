@@ -18,7 +18,7 @@ const Signup = () => {
     setSuccess('');
 
     try {
-      const result = await axios.post('https://bookkart-server.onrender.com/user/register', { name, email, password });
+      const result = await axios.post('http://localhost:5000/user/register', { name, email, password });
       setSuccess('Registration successful!');
       
       setTimeout(() => {

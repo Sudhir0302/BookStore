@@ -70,7 +70,7 @@ function App() {
       <div>
           {hidebar&&<Navbar onSearch={handleSearch} onCategory={handleCategory} />}
 
-        <div className="book-list">
+        {/* <div className="book-list">
           {isLoading ? (
             <p>Loading books...</p>
           ) : filteredBooks.length > 0 ? (
@@ -85,7 +85,7 @@ function App() {
           ) : (
             console.log("no books found")
           )}
-        </div>
+        </div> */}
 
         <Routes>
           <Route path='/' element={<Home search={searchTerm} category={selectedCategory} OnCategory={handleCategory}/>} />
