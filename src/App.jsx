@@ -70,22 +70,6 @@ function App() {
       <div>
           {hidebar&&<Navbar onSearch={handleSearch} onCategory={handleCategory} />}
 
-        <div className="book-list">
-          {isLoading ? (
-            <p>Loading books...</p>
-          ) : filteredBooks.length > 0 ? (
-            filteredBooks.map((book, index) => (
-                <div key={`${book.id}-${index}`} className="book-card">
-                    <h3>{book.title}</h3>
-                    <p>by {book.author}</p>
-                    <p>Genre: {book.genre}</p>
-                    <p>Price: ₹{book.price}</p>
-                </div>
-            ))
-          ) : (
-            console.log("no books found")
-          )}
-        </div>
 
         <Routes>
           <Route path='/' element={<Home search={searchTerm} category={selectedCategory} OnCategory={handleCategory} />} />
