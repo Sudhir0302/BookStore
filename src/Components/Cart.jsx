@@ -18,7 +18,7 @@ const Cart = () => {
     const totalPrice = cartItems.reduce((total, book) => total + book.price, 0);
 
     const handleRemove = (index) => {
-        axios.delete("https://bookstore-server-1.onrender.com/user/deletecart", {
+        axios.delete("http://localhost:5000/user/deletecart", {
             data: { userId: user._id, index }
         })
         .then(res => {
@@ -68,7 +68,7 @@ const Cart = () => {
         const fetchCartItems = async () => {
             if (user && user._id) {
                 try {
-                    const response = await axios.get(`https://bookstore-server-1.onrender.com/user/getcart/${user._id}`);
+                    const response = await axios.get(`http://localhost:5000/user/getcart/${user._id}`);
                     setCartItems(response.data?.cart.cart_items || []); // Set local cart items
                     setCartid(response.data?.cart.cart_items);
                     console.log(cartid);
