@@ -72,8 +72,6 @@ const Popup = ({handlePop,popdata}) => {
   )
 }
 
-
-// DetailedBookView component to display detailed information of the selected book
 const DetailedBookView = ({ book, onClose ,isAdded,setIsAdded}) => {
   const { user, isLogin } = useAuth();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -84,7 +82,7 @@ const DetailedBookView = ({ book, onClose ,isAdded,setIsAdded}) => {
       }
 
       try {
-          const response = await axios.put('http://localhost:5000/user/addcart', {
+          const response = await axios.put('https://bookstore-server-1.onrender.com/user/addcart', {
               userId: user._id,
               bookId
           });
@@ -128,10 +126,8 @@ const DetailedBookView = ({ book, onClose ,isAdded,setIsAdded}) => {
                       <div className="mb-4">
                           <h3 className="text-lg font-semibold mb-2">Details</h3>
                           <ul className="list-disc pl-5 text-gray-700">
-                              <li><strong>Stock Availability:</strong> {book.stockAvailability}</li>
                               <li><strong>Language:</strong> {book.language}</li>
                               <li><strong>Genre:</strong> {book.genre}</li>
-                              <li><strong>Format:</strong> {book.format}</li>
                               <li><strong>Publisher:</strong> {book.publisher}</li>
                           </ul>
                       </div>
@@ -156,7 +152,6 @@ const DetailedBookView = ({ book, onClose ,isAdded,setIsAdded}) => {
   );
 };
 
-// ProductCard component to display book information in a card layout
 const ProductCard = ({ title, author, description, price, imageUrl, overview, stockAvailability, language, genre, format, publisher ,id,handlePop}) => {
   const [isDetailedViewOpen, setIsDetailedViewOpen] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
@@ -165,14 +160,14 @@ const ProductCard = ({ title, author, description, price, imageUrl, overview, st
   
 
   const handleAddToCart = async (e,bookId) => {
-    e.stopPropagation(); // Prevents opening the detailed view when adding to cart
+    e.stopPropagation();
     if (!isLogin) {
         setIsPopupOpen(true);
         return;
     }
 
     try {
-        const response = await axios.put('http://localhost:5000/user/addcart', {
+        const response = await axios.put('https://bookstore-server-1.onrender.com/user/addcart', {
             userId: user._id,
             bookId
         });
@@ -304,8 +299,6 @@ const GenreSection = ({ genre, books, search,handlePop}) => {
   );
 };
 
-
-
 const Home = ({ search, category, OnCategory }) => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -320,11 +313,10 @@ const Home = ({ search, category, OnCategory }) => {
     'https://cdn.pixabay.com/photo/2019/05/16/20/55/books-4208228_960_720.jpg',
   ];
 
-  // Fetch all books from the backend
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/books');
+        const response = await axios.get('https://bookstore-server-1.onrender.com/books');
         setBooks(response.data);
         setLoading(false);
       } catch (error) {
@@ -370,7 +362,6 @@ const Home = ({ search, category, OnCategory }) => {
     <div>
       <div className="container mx-auto px-4 py-8">
         <h1 className='text-center font-5 text-4xl mb-3 shadow-lg bg-slate-800 text-white h-14 p-2 w-full top-0'>WelCome to Bookart</h1>
-        {/* Carousel */}
         
         <Carousel images={carouselImages} />
 

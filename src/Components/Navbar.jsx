@@ -28,13 +28,11 @@ const Navbar = ({ onSearch, onCategory }) => {
   return (
     <nav className="bg-slate-800 text-white shadow-lg">
       <div className="container mx-auto px-5">
-        {/* Top bar - always visible */}
         <div className="flex items-center justify-between p-4">
           <div className="text-3xl font-bold font-5">
             <h1>Bookart</h1>
           </div>
 
-          {/* Search form for desktop */}
           <div className="hidden lg:block flex-1 mx-8">
             <form className="relative" onSubmit={handleSearchSubmit}>
               <input
@@ -55,8 +53,6 @@ const Navbar = ({ onSearch, onCategory }) => {
               </button>
             </form>
           </div>
-
-          {/* Desktop navigation */}
           <div className="hidden lg:flex items-center space-x-6">
             <nav>
               <ul className="flex items-center space-x-6 text-sm font-medium">
@@ -87,7 +83,6 @@ const Navbar = ({ onSearch, onCategory }) => {
             </nav>
           </div>
 
-          {/* Mobile menu button */}
           <div className="lg:hidden relative">
             <button
               className="p-2 focus:outline-none"
@@ -95,11 +90,8 @@ const Navbar = ({ onSearch, onCategory }) => {
             >
               <Menu className="w-6 h-6 text-white" />
             </button>
-
-            {/* Mobile menu dropdown */}
             {isMobileMenuOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-slate-800 rounded-lg shadow-xl py-2 z-50">
-                {/* Mobile search form */}
                 <form className="px-4 pb-2" onSubmit={handleSearchSubmit}>
                   <div className="relative">
                     <input
@@ -121,7 +113,6 @@ const Navbar = ({ onSearch, onCategory }) => {
                   </div>
                 </form>
 
-                {/* Mobile navigation links */}
                 <select
                   value={category}
                   onChange={handleCategoryChange}

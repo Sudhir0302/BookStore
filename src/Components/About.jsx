@@ -28,7 +28,7 @@ const About = ({OnCategory}) => {
             <div className="flex justify-center">
               <img
                 className="rounded-lg shadow-lg object-cover h-80 w-80 transition duration-500 hover:scale-105"
-                src="/assets/img/others/about.jpg"
+                src="/assets/img/others/About.jpg"
                 alt="Bookstore"
               />
             </div>
@@ -53,19 +53,14 @@ const About = ({OnCategory}) => {
           </div>
         </div>
       </div>
-
-      {/* Footer Section */}
       <footer className="bg-gray-900 text-white">
         <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8 w-full">
           <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
-            {/* Footer Column 1 */}
             <div>
               <div className="text-3xl font-bold font-5 py-16">
                 <h1>Bookart </h1>
               </div>
             </div>
-
-            {/* Footer Column 3 */}
             <div>
               <h3 className="text-lg font-semibold ">Popular Categories</h3>
               <ul className="space-y-2  text-white pb-2 text-md list-none mt-4" onClick={handleChange}>
@@ -86,7 +81,6 @@ const About = ({OnCategory}) => {
                 <li><a href="/" className="hover:underline">Big Little Lies</a></li>
               </ul>
             </div>
-            {/* Footer Column 2 */}
             <div>
               <h3 className="text-lg font-semibold">Quick Links</h3>
               <ul className="mt-4 space-y-2">
@@ -105,8 +99,6 @@ const About = ({OnCategory}) => {
             </div>
 
           </div>
-
-          {/* Bottom Footer */}
           <div className="mt-8 border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
              {new Date().getFullYear()} BookArt. All rights reserved.
           </div>
