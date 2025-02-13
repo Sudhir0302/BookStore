@@ -18,7 +18,7 @@ const Cart = () => {
     const totalPrice = cartItems.reduce((total, book) => total + book.price, 0);
 
     const handleRemove = (index) => {
-        axios.delete("http://localhost:5000/user/deletecart", {
+        axios.delete("https://bookstore-server-1.onrender.com/user/deletecart", {
             data: { userId: user._id, index }
         })
         .then(res => {
@@ -36,19 +36,17 @@ const Cart = () => {
     const handleOrder = (e) => {
         e.preventDefault();
         if (isLogin) {
-            setIsPopupOpen(true); // Open the order popup
+            setIsPopupOpen(true); 
         }
     };
 
     const handleClosePopup = () => {
-        setIsPopupOpen(false); // Close the order popup
+        setIsPopupOpen(false);
     };
 
     const handleSubmitOrder = (userDetails) => {
-        // Handle order submission with user details
         console.log("Order placed with details:", userDetails);
         
-        // Store user and cart details to show in the success popup
         const orderData = {
             userDetails,
             cartItems,
@@ -56,20 +54,20 @@ const Cart = () => {
         };
         setOrderDetails(orderData);
 
-        setIsPopupOpen(false); // Close the order popup
-        setIsSuccessPopupOpen(true); // Open the success popup
+        setIsPopupOpen(false); 
+        setIsSuccessPopupOpen(true); 
     };
 
     const handleCloseSuccessPopup = () => {
-        setIsSuccessPopupOpen(false); // Close the success popup
+        setIsSuccessPopupOpen(false);
     };
 
     useEffect(() => {
         const fetchCartItems = async () => {
             if (user && user._id) {
                 try {
-                    const response = await axios.get(`http://localhost:5000/user/getcart/${user._id}`);
-                    setCartItems(response.data?.cart.cart_items || []); // Set local cart items
+                    const response = await axios.get(`https://bookstore-server-1.onrender.com/user/getcart/${user._id}`);
+                    setCartItems(response.data?.cart.cart_items || []); 
                     setCartid(response.data?.cart.cart_items);
                     console.log(cartid);
                 } catch (err) {

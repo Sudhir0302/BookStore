@@ -70,7 +70,6 @@ function App() {
       <div>
           {hidebar&&<Navbar onSearch={handleSearch} onCategory={handleCategory} />}
 
-
         <Routes>
           <Route path='/' element={<Home search={searchTerm} category={selectedCategory} OnCategory={handleCategory} />} />
           <Route path='/register' element={<Signup />} />
