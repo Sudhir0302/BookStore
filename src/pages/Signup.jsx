@@ -19,7 +19,7 @@ const Signup = () => {
     setSuccess('');
 
     try {
-      const result = await axios.post(serverurl+'/user/register', { name, email, password });
+      const result = await axios.post(serverurl+'/user/register', { name, email, password },{withCredentials: true});
       setSuccess('Registration successful!');
       
       setTimeout(() => {

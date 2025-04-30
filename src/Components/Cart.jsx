@@ -19,7 +19,8 @@ const Cart = () => {
 
     const handleRemove = (index) => {
         axios.delete(serverurl+"/user/deletecart", {
-            data: { userId: user._id, index }
+            data: { userId: user._id, index },
+            withCredentials: true
         })
         .then(res => {
             console.log(res.data); 
@@ -66,7 +67,7 @@ const Cart = () => {
         const fetchCartItems = async () => {
             if (user && user._id) {
                 try {
-                    const response = await axios.get(serverurl+`/user/getcart/${user._id}`);
+                    const response = await axios.get(serverurl+`/user/getcart/${user._id}`,{withCredentials: true});
                     setCartItems(response.data?.cart.cart_items || []); 
                     setCartid(response.data?.cart.cart_items);
                     // console.log(cartid);

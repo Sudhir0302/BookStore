@@ -86,7 +86,7 @@ const DetailedBookView = ({ book, onClose ,isAdded,setIsAdded}) => {
           const response = await axios.put(serverurl+'/user/addcart', {
               userId: user._id,
               bookId
-          });
+          },{withCredentials: true});
           setIsAdded(true);
           console.log('Book added to cart:', response.data.message);
       } catch (error) {
@@ -171,7 +171,7 @@ const ProductCard = ({ title, author, description, price, imageUrl, overview, st
         const response = await axios.put(serverurl+'/user/addcart', {
             userId: user._id,
             bookId
-        });
+        },{withCredentials: true});
         setIsAdded(true);
         console.log('Book added to cart:', response.data.message);
     } catch (error) {
@@ -316,7 +316,7 @@ const Home = ({ search, category, OnCategory }) => {
 
   useEffect(() => {
     const fetchBooks = async () => {
-      const token=localStorage.getItem('token')
+      // const token=localStorage.getItem('token')
       try {
         const response=await axios.get(serverurl+"/books",{
           withCredentials: true
