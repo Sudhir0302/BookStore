@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Search, Menu } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
+import axios from 'axios';
+import { serverurl } from '../App.jsx';
 
 const Navbar = ({ onSearch, onCategory }) => {
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { isLogin, user } = useAuth();
+  const { isLogin, user,setLogin,setUser } = useAuth();
   const navigate = useNavigate();
 
   const handleCategoryChange = (e) => {
@@ -24,6 +26,18 @@ const Navbar = ({ onSearch, onCategory }) => {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+
+
+  const handlebutton=async()=>{
+    try{
+      const res=await axios.post(serverurl+'/user/signout',{},{withCredentials: true});
+      setLogin(false);
+      setUser(null);
+      navigate('/');
+    }catch(err){
+      console.log(err);
+    }
+  }
 
   return (
     <nav className="bg-slate-800 text-white shadow-lg">
@@ -70,13 +84,13 @@ const Navbar = ({ onSearch, onCategory }) => {
                     <option className="bg-slate-800 text-white" value="Non-fiction">Non-fiction</option>
                   </select>
                 </li>
-                <li className="hover:text-blue-400 transition cursor-pointer" onClick={() => navigate('/')}>Home</li>
+                <li className="hover:text-blue-400 transition cursor-pointer" onClick={() => navigate('/home')}>Home</li>
                 <li className="hover:text-blue-400 transition cursor-pointer" onClick={() => navigate('/about')}>About</li>
                 <li className="hover:text-blue-400 transition cursor-pointer" onClick={() => navigate('/cart')}>Checkout</li>
                 {isLogin && user.role === 'admin' && (
                   <li className="hover:text-blue-400 transition cursor-pointer" onClick={() => navigate('/admin')}>Admin</li>
                 )}
-                <li className="hover:text-blue-400 transition cursor-pointer" onClick={() => navigate('/login')}>
+                <li className="hover:text-blue-400 transition cursor-pointer" onClick={handlebutton}>
                   {isLogin ? 'Logout' : 'Login'}
                 </li>
               </ul>
@@ -129,13 +143,13 @@ const Navbar = ({ onSearch, onCategory }) => {
                 <div className="border-t border-slate-700 my-2"></div>
 
                 <div className="px-2">
-                  <button onClick={() => navigate('/')} className="w-full text-left px-2 py-2 text-sm hover:bg-slate-700 rounded">Home</button>
+                  <button onClick={() => navigate('/home')} className="w-full text-left px-2 py-2 text-sm hover:bg-slate-700 rounded">Home</button>
                   <button onClick={() => navigate('/about')} className="w-full text-left px-2 py-2 text-sm hover:bg-slate-700 rounded">About</button>
                   <button onClick={() => navigate('/cart')} className="w-full text-left px-2 py-2 text-sm hover:bg-slate-700 rounded">Checkout</button>
                   {isLogin && user.role === 'admin' && (
                     <button onClick={() => navigate('/admin')} className="w-full text-left px-2 py-2 text-sm hover:bg-slate-700 rounded">Admin</button>
                   )}
-                  <button onClick={() => navigate('/login')} className="w-full text-left px-2 py-2 text-sm hover:bg-slate-700 rounded">
+                  <button onClick={handlebutton} className="w-full text-left px-2 py-2 text-sm hover:bg-slate-700 rounded">
                     {isLogin ? 'Logout' : 'Login'}
                   </button>
                 </div>

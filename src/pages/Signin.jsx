@@ -2,6 +2,7 @@ import React, { useState,useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext.jsx';
+import { serverurl } from '../App.jsx';
 
 const Signin = () => {
   const [email, setEmail] = useState('');
@@ -10,8 +11,17 @@ const Signin = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
-  const { setLogin, user,setUser } = useAuth();
+  const { isLogin,setLogin, user,setUser } = useAuth();
 
+  useEffect(() => {
+    if (isLogin) {
+      setTimeout(() => {
+        navigate('/home');
+      }, 1500);
+    }
+  }, [isLogin]);
+
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -19,17 +29,11 @@ const Signin = () => {
     setSuccess('');
 
     try {
-      const result = await axios.post('https://bookstore-server-1.onrender.com/user/signin', { email, password });
-      setSuccess('Login successful!!!');
-      setLogin(true);
-      setUser(result.data?.user);
-      // console.log(user?.name);
-
-      setTimeout(() => {
-        // handleLogin();
-        navigate('/');
-      }, 1500);
-
+      const result = await axios.post(serverurl+'/user/signin', { email, password },{withCredentials: true});
+        setSuccess('Login successful!!!');
+        setLogin(true);
+        // console.log(isLogin);
+        setUser(result.data?.user);
     } catch (err) {
       if (err.response && err.response.data) {
         setError(err.response.data.message);
@@ -41,12 +45,6 @@ const Signin = () => {
       setLoading(false);
     }
   };
-
-  // useEffect(() => {
-  //   if (user) {
-  //     console.log("User's name:", user.name);
-  //   }
-  // }, [user]);
 
   return (
     <>
@@ -85,7 +83,6 @@ const Signin = () => {
               <input
                 type="email"
                 placeholder="Email"
-
                 className="w-full h-11 p-3 font-1 border-0 rounded-md bg-transparent outline-none placeholder:italic focus:outline-2 focus:outline-blue-400 text-black hover:outline-green-400"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
@@ -100,6 +97,7 @@ const Signin = () => {
 
                 className="w-full h-11 rounded-lg p-3 border-0 bg-transparent outline-none placeholder:italic focus:outline-2 focus:outline-blue-500 text-black  hover:outline-green-400"
                 onChange={(e) => setPassword(e.target.value)}
+                autoComplete="current-password"
                 value={password}
                 required
               />

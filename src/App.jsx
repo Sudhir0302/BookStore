@@ -3,15 +3,18 @@ import './assets/css/core.css';
 import Navbar from './Components/Navbar';
 import Cart from './Components/Cart';
 import Home from './Components/Home';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { Signup } from './pages/Signup';
 import { Signin } from './pages/Signin';
 import Admin from './Components/Admin';
 import About from './Components/About';
-import { AuthProvider } from './context/AuthContext.jsx';
+import { AuthProvider, useAuth } from './context/AuthContext.jsx';
 import axios from 'axios';
+export const serverurl=import.meta.env.VITE_server_url;
 
-function App() {
+
+
+function AppContent() {
   const location = useLocation();
   const hidebar = location.pathname === '/' || location.pathname === '/register';
 
@@ -21,16 +24,23 @@ function App() {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
+  const {isLogin}=useAuth();
+  // console.log(serverurl);
+
   useEffect(() => {
     const fetchBooks = async () => {
-      try {
-        const response = await axios.get('https://bookstore-server-1.onrender.com/books');
-        setBooks(response.data);
-        setFilteredBooks(response.data);
-      } catch (error) {
-        console.error('Error fetching books:', error);
-      } finally {
-        setIsLoading(false);
+      if(isLogin){
+        try {
+          const response = await axios.get(serverurl + "/books", {
+            withCredentials: true
+          });
+          setBooks(response.data);
+          setFilteredBooks(response.data);
+        } catch (error) {
+          console.error('Error fetching books:', error);
+        } finally {
+          setIsLoading(false);
+        }
       }
     };
     fetchBooks();
@@ -66,21 +76,25 @@ function App() {
   };
 
   return (
-    <AuthProvider>
       <div>
-          {hidebar&&<Navbar onSearch={handleSearch} onCategory={handleCategory} />}
-
+          {!hidebar&&<Navbar onSearch={handleSearch} onCategory={handleCategory} />}
         <Routes>
-          <Route path='/' element={<Home search={searchTerm} category={selectedCategory} OnCategory={handleCategory} />} />
           <Route path='/register' element={<Signup />} />
-          <Route path="/login" element={<Signin />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path='/admin' element={<Admin />} />
-          <Route path='/about' element={<About OnCategory={handleCategory} />} />
+          <Route path="/" element={<Signin />} />
+          <Route path='/home' element={isLogin?<Home search={searchTerm} category={selectedCategory} OnCategory={handleCategory} /> : <Navigate to={'/'} />} />
+          <Route path="/cart" element={isLogin?<Cart />:<Navigate to={'/'} />} />
+          <Route path="/about" element={isLogin?<About />:<Navigate to={'/'} />} />
+          <Route path='/admin' element={isLogin?<Admin />:<Navigate to={'/'} />} />
         </Routes>
       </div>
-    </AuthProvider>
   )
 };
 
+function App(){
+  return(
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
+  );
+}
 export default App;

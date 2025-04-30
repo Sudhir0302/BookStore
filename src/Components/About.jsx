@@ -18,7 +18,6 @@ const About = ({OnCategory}) => {
   };
   return (
     <>
-      {hidebar&&<Navbar />}
       <div>
         <h1 className='text-center font-5 text-4xl mb-3 shadow-lg bg-slate-800 text-white h-14 p-2 w-full top-0'> About Bookart</h1>
       <div className="bg-gray-50 pb-32 pt-14">
@@ -84,7 +83,7 @@ const About = ({OnCategory}) => {
             <div>
               <h3 className="text-lg font-semibold">Quick Links</h3>
               <ul className="mt-4 space-y-2">
-                <li><a href="/" className="hover:underline">Home</a></li>
+                <li><a href="/home" className="hover:underline">Home</a></li>
                 <li><a href="/about" className="hover:underline">About Us</a></li>
                 <li><a href="/login" className="hover:underline">Login</a></li>
               </ul>

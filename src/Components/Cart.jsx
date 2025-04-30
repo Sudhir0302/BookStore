@@ -4,7 +4,7 @@ import axios from 'axios';
 import LoginPopup from './LoginPopup.jsx';
 import OrderPopup from './OrderPopup.jsx'; 
 import SuccessPopup from './Successpopup.jsx'; 
-import Navbar from './Navbar.jsx';
+import { serverurl } from '../App.jsx';
 
 const Cart = () => {
     const { isLogin, user } = useAuth();
@@ -18,7 +18,7 @@ const Cart = () => {
     const totalPrice = cartItems.reduce((total, book) => total + book.price, 0);
 
     const handleRemove = (index) => {
-        axios.delete("https://bookstore-server-1.onrender.com/user/deletecart", {
+        axios.delete(serverurl+"/user/deletecart", {
             data: { userId: user._id, index }
         })
         .then(res => {
@@ -66,10 +66,10 @@ const Cart = () => {
         const fetchCartItems = async () => {
             if (user && user._id) {
                 try {
-                    const response = await axios.get(`https://bookstore-server-1.onrender.com/user/getcart/${user._id}`);
+                    const response = await axios.get(serverurl+`/user/getcart/${user._id}`);
                     setCartItems(response.data?.cart.cart_items || []); 
                     setCartid(response.data?.cart.cart_items);
-                    console.log(cartid);
+                    // console.log(cartid);
                 } catch (err) {
                     console.error(err);
                 } finally {
@@ -96,7 +96,6 @@ const Cart = () => {
 
     return (
         <>
-        <Navbar />
         <div className="p-6 bg-white shadow-md rounded-lg mt-6">
             <h2 className="text-2xl font-bold mb-4">Your Cart</h2>
             {cartItems.length === 0 ? (
@@ -104,8 +103,8 @@ const Cart = () => {
             ) : (
                 <>
                    <ul>
-                    {cartItems.map((book) => (
-                        <li key={book._id} className="flex items-start border-b py-4">
+                    {cartItems.map((book,ind) => (
+                        <li key={ind} className="flex items-start border-b py-4">
                             <img src={book.imageUrl} alt={book.title} className="w-24 h-36 object-cover rounded-md mr-4" />
                             <div className="flex-grow">
                                 <h3 className="text-lg font-semibold">{book.title}</h3>

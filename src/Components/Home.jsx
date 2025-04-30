@@ -8,6 +8,7 @@ import About from './About'
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import LoginPopup from './LoginPopup.jsx';
+import { serverurl } from '../App.jsx';
 
 const Carousel = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -82,7 +83,7 @@ const DetailedBookView = ({ book, onClose ,isAdded,setIsAdded}) => {
       }
 
       try {
-          const response = await axios.put('https://bookstore-server-1.onrender.com/user/addcart', {
+          const response = await axios.put(serverurl+'/user/addcart', {
               userId: user._id,
               bookId
           });
@@ -167,7 +168,7 @@ const ProductCard = ({ title, author, description, price, imageUrl, overview, st
     }
 
     try {
-        const response = await axios.put('https://bookstore-server-1.onrender.com/user/addcart', {
+        const response = await axios.put(serverurl+'/user/addcart', {
             userId: user._id,
             bookId
         });
@@ -315,8 +316,11 @@ const Home = ({ search, category, OnCategory }) => {
 
   useEffect(() => {
     const fetchBooks = async () => {
+      const token=localStorage.getItem('token')
       try {
-        const response = await axios.get('https://bookstore-server-1.onrender.com/books');
+        const response=await axios.get(serverurl+"/books",{
+          withCredentials: true
+        })
         setBooks(response.data);
         setLoading(false);
       } catch (error) {

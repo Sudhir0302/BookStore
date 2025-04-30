@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { serverurl } from '../App';
 
 const Signup = () => {
   const [name, setName] = useState('');
@@ -18,7 +19,7 @@ const Signup = () => {
     setSuccess('');
 
     try {
-      const result = await axios.post('https://bookstore-server-1.onrender.com/user/register', { name, email, password });
+      const result = await axios.post(serverurl+'/user/register', { name, email, password });
       setSuccess('Registration successful!');
       
       setTimeout(() => {
@@ -97,6 +98,7 @@ const Signup = () => {
                 placeholder="Password"
                 className="w-full h-11 rounded-lg p-3 border-none bg-transparent outline-none placeholder:italic focus:outline-2 focus:outline-blue-400 text-black hover:outline-green-400"
                 onChange={(e) => setPassword(e.target.value)}
+                autoComplete="new-password"
                 value={password}
                 required
               />
