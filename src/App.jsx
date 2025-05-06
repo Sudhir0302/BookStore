@@ -11,7 +11,7 @@ import About from './Components/About';
 import { AuthProvider, useAuth } from './context/AuthContext.jsx';
 import axios from 'axios';
 export const serverurl=import.meta.env.VITE_server_url;
-
+export const supabaseimg=import.meta.env.VITE_supabase_img;
 
 
 function AppContent() {

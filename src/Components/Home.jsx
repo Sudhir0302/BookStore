@@ -8,7 +8,7 @@ import About from './About'
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import LoginPopup from './LoginPopup.jsx';
-import { serverurl } from '../App.jsx';
+import { serverurl, supabaseimg } from '../App.jsx';
 
 const Carousel = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -309,9 +309,9 @@ const Home = ({ search, category, OnCategory }) => {
 
   
   const carouselImages = [
-    'https://cdn.pixabay.com/photo/2014/09/05/18/32/old-books-436498_1280.jpg',
-    'https://cdn.pixabay.com/photo/2015/10/09/08/38/book-978878_1280.jpg',
-    'https://cdn.pixabay.com/photo/2019/05/16/20/55/books-4208228_960_720.jpg',
+    '/public/assets/img/carousel/carousel1.jpg',
+    '/public/assets/img/carousel/carousel2.jpg',
+    '/public/assets/img/carousel/carousel3.jpg'
   ];
 
   useEffect(() => {
@@ -321,6 +321,11 @@ const Home = ({ search, category, OnCategory }) => {
         const response=await axios.get(serverurl+"/books",{
           withCredentials: true
         })
+        // console.log(response.data);
+        // response.data.map((data)=>{
+        //   data.imageUrl=supabaseimg+data.imageUrl;
+        // })
+        // console.log(response.data);
         setBooks(response.data);
         setLoading(false);
       } catch (error) {

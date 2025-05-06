@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from './Navbar';
 import { useLocation } from 'react-router-dom';
+import { supabaseimg } from '../App';
 
 const About = ({OnCategory}) => {
   
@@ -27,7 +28,7 @@ const About = ({OnCategory}) => {
             <div className="flex justify-center">
               <img
                 className="rounded-lg shadow-lg object-cover h-80 w-80 transition duration-500 hover:scale-105"
-                src="/assets/img/others/About.jpg"
+                src={`${supabaseimg}/assets/img/others/about.jpg`}
                 alt="Bookstore"
               />
             </div>
