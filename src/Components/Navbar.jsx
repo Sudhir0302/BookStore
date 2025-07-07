@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Search, Menu } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import axios from 'axios';
 import { serverurl } from '../App.jsx';
@@ -44,7 +44,8 @@ const Navbar = ({ onSearch, onCategory }) => {
       <div className="container mx-auto px-5">
         <div className="flex items-center justify-between p-4">
           <div className="text-3xl font-bold font-5">
-            <h1>Bookart</h1>
+            {/* <h1>Bookart</h1> */}
+            <Link to='/home'>Bookart</Link>
           </div>
 
           <div className="hidden lg:block flex-1 mx-8">
@@ -87,9 +88,9 @@ const Navbar = ({ onSearch, onCategory }) => {
                 <li className="hover:text-blue-400 transition cursor-pointer" onClick={() => navigate('/home')}>Home</li>
                 <li className="hover:text-blue-400 transition cursor-pointer" onClick={() => navigate('/about')}>About</li>
                 <li className="hover:text-blue-400 transition cursor-pointer" onClick={() => navigate('/cart')}>Checkout</li>
-                {isLogin && user.role === 'admin' && (
+                {/* {isLogin && user.role === 'admin' && (
                   <li className="hover:text-blue-400 transition cursor-pointer" onClick={() => navigate('/admin')}>Admin</li>
-                )}
+                )} */}
                 <li className="hover:text-blue-400 transition cursor-pointer" onClick={handlebutton}>
                   {isLogin ? 'Logout' : 'Login'}
                 </li>

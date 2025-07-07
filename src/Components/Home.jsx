@@ -363,10 +363,12 @@ const Home = ({ search, category, OnCategory }) => {
       acc[genre].push(book);
       return acc;
     }, {})
-  ).filter(([genre, books]) =>
-    books.some((book) => book.title.toLowerCase().includes(search.toLowerCase()))
   );
-
+  // .filter(([genre, books]) =>
+    // books.some((book) => book.title.toLowerCase().includes(search.toLowerCase()))
+  // );
+  console.log(matchedGenres);
+  
   return (
     <div>
       <div className="container mx-auto px-4 py-8">

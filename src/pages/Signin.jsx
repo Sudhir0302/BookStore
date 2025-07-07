@@ -21,6 +21,15 @@ const Signin = () => {
     }
   }, [isLogin]);
 
+  useEffect(()=>{
+      const fetch=async()=>{
+      const check=await axios.post(serverurl+'/user/check',{},{withCredentials:true});
+      setLogin(true)
+      setUser(check.data.user)
+    }
+    fetch()
+  },[])
+
   
   const handleSubmit = async (e) => {
     e.preventDefault();
