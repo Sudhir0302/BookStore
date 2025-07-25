@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Navbar from './Navbar';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { supabaseimg } from '../App';
 
-const About = ({OnCategory}) => {
+const About = ({onSearch,OnCategory}) => {
   
   const location = useLocation();
   const hidebar = location.pathname === '/about';
@@ -17,6 +17,13 @@ const About = ({OnCategory}) => {
         console.error("OnCategory is not a function.");
     }
   };
+
+  const handleSearch=(e)=>{
+    // console.log(e.target.getAttribute("data-value"))
+    const value=e.target.getAttribute("data-value")
+    onSearch(value)
+    window.scrollTo({top:0,behavior:'smooth'})
+  }
   return (
     <>
       <div>
@@ -74,19 +81,22 @@ const About = ({OnCategory}) => {
             <div>
               <h3 className="text-lg font-semibold">Our Best Picks</h3>
               <ul className="mt-4 space-y-2">
-                <li><a href="" className="hover:underline">The Overstory</a></li>
-                <li><a href="" className="hover:underline">Beloved</a></li>
-                <li><a href="" className="hover:underline">Dune</a></li>
-                <li><a href="" className="hover:underline">Educated</a></li>
-                <li><a href="/" className="hover:underline">Big Little Lies</a></li>
+                <li onClick={handleSearch} data-value="The Overstory">The Overstory</li>
+                <li onClick={handleSearch} data-value="Beloved">Beloved</li>
+                <li onClick={handleSearch} data-value="Dune">Dune</li>
+                <li onClick={handleSearch} data-value="Educated">Educated</li>
+                <li onClick={handleSearch} data-value="Big Little Lies">Big Little Lies</li>
               </ul>
             </div>
             <div>
               <h3 className="text-lg font-semibold">Quick Links</h3>
               <ul className="mt-4 space-y-2">
-                <li><a href="/home" className="hover:underline">Home</a></li>
-                <li><a href="/about" className="hover:underline">About Us</a></li>
-                <li><a href="/login" className="hover:underline">Login</a></li>
+                {/* <li onClick={()=><} className="hover:underline">Home</li>
+                <li className="hover:underline">About Us</li>
+                <li className="hover:underline">Login</li> */}
+                <Link to={"/home"}>Home</Link><br/>
+                <Link to={"/about"}>About</Link><br/>
+                <Link to={"/cart"}>Cart</Link><br/>
               </ul>
             </div>
             <div>

@@ -55,6 +55,7 @@ function AppContent() {
   };
 
   const handleCategory = (category) => {
+    setSearchTerm('')
     setSelectedCategory(category);
   };
 
@@ -81,7 +82,7 @@ function AppContent() {
         <Routes>
           <Route path='/register' element={<Signup />} />
           <Route path="/" element={<Signin />} />
-          <Route path='/home' element={isLogin?<Home search={searchTerm} category={selectedCategory} OnCategory={handleCategory} /> : <Navigate to={'/'} />} />
+          <Route path='/home' element={isLogin?<Home search={searchTerm} category={selectedCategory} OnCategory={handleCategory} handleSearch={handleSearch}/> : <Navigate to={'/'} />} />
           <Route path="/cart" element={isLogin?<Cart />:<Navigate to={'/'} />} />
           <Route path="/about" element={isLogin?<About />:<Navigate to={'/'} />} />
           <Route path='/admin' element={isLogin?<Admin />:<Navigate to={'/'} />} />

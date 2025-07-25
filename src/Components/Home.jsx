@@ -300,7 +300,7 @@ const GenreSection = ({ genre, books, search,handlePop}) => {
   );
 };
 
-const Home = ({ search, category, OnCategory }) => {
+const Home = ({ search, category, OnCategory ,handleSearch}) => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -367,7 +367,7 @@ const Home = ({ search, category, OnCategory }) => {
   // .filter(([genre, books]) =>
     // books.some((book) => book.title.toLowerCase().includes(search.toLowerCase()))
   // );
-  console.log(matchedGenres);
+  // console.log(matchedGenres);
   
   return (
     <div>
@@ -393,7 +393,7 @@ const Home = ({ search, category, OnCategory }) => {
         )}
         {pop && <Popup handlePop={handlePop} popdata={popdata} />}
       </div>
-      <About OnCategory={OnCategory} />
+      <About OnCategory={OnCategory} onSearch={handleSearch}/>
     </div>
   );
 };
